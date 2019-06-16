@@ -5,7 +5,7 @@
 }
 
 .card-carousel{
-    overflow: hidden;
+  overflow: hidden;
   display: flex;
   /* position: relative; */
   /* z-index: 1; */
@@ -20,14 +20,14 @@
 .my-card{
   /* text-align: center; */
   /* justify-content: center; */
-  border: 1px solid lightblue;
+  border: 3px solid purple;
   background-color: yellow;
   width: 33.33333%;
   /* align-items: center; */
   /* width: 60%; */
 }
 
-.card-carousel img{
+.my-card img{
   cursor: pointer;
   height: 40vh;
   padding: 60px 10px 0px 10px;

@@ -44,77 +44,48 @@ $(document).ready(function(){
 
 
   $('.my-card').click(function() {
-    console.log('this is click');
-    $slide = 0
+    if ($(this).hasClass('active')) {
+      console.log('THIS IS ACTIVE');
+    }
+    else {
+      let last_image_div = $('.my-card:last-child')
+      let first_image_div = $('.my-card:first-child')
+      console.log(first_image_div, 'this is line 54');
+      $slide = 0
 
-      // if ($(this).hasClass('next')) {
-      //   $('.card-carousel').stop(false, true).animate({left: '-=' + $slide}, "slow");
-      // } else if ($(this).hasClass('prev')) {
-      //   $('.card-carousel').stop(false, true).animate({left: '+=' + $slide}, "slow");
-      // }
+        if ($(this).hasClass('next')) {
+          $('.my-card:last-child').after(first_image_div);
+          first_image_div.hide()
+        }else {
+          $('.my-card:nth-child(' + 1 + ')').before(last_image_div);
+        }
 
-      $(this).removeClass('prev next');
-      $(this).siblings().removeClass('prev active next');
-      $(this).addClass('active');
-      let first_image = $('.my-card:nth-child(' + 1+ ')')[0].id
-      let last_image = $('.my-card:last-child')[0].id
-      //if the prev is image0
-      if ($(this)[0].id === first_image){
-          let last_image_div = document.getElementById('image' + (images.length - 1))
-          $(image_div).show()
-          $(this).before(image_div);
-          $(this).nextAll().addClass('next');
-      }
-      else if ($(this)[0].id === last_image) {
-        let first_image_div = document.getElementById('image' + (1))
-        $(first_image_div).show()
-        $(this).after(first_image_div);
-        $(this).prevAll().addClass('prev');
-      }
-      else {
+        $(this).removeClass('prev next');
+        $(this).siblings().removeClass('prev active next');
+        $(this).addClass('active');
+
         $(this).prevAll().addClass('prev');
         $(this).nextAll().addClass('next');
-      }
 
-      if ($(this).next().is(":hidden")) {
-        $('.card-carousel').stop(false, true).animate({left: '-=' + $slide});
-
-          $(this).removeClass('prev next');
-          $(this).siblings().removeClass('prev active next');
-          $(this).prev().addClass('prev');
-          $(this).next().addClass('next');
-          $(this).next().show();
-          $('.my-card').prevAll().not('.prev, .active, .next').hide();
-      }
-
-      if ($(this).prev().is(":hidden")){
-        $('.card-carousel').stop(false, true).animate({left: '+=' + $slide});
-
-          $(this).removeClass('prev next');
-          $(this).siblings().removeClass('prev active next');
-          $(this).prev().addClass('prev');
-          $(this).next().addClass('next');
-          $(this).prev().show();
-          $('.my-card').nextAll().not('.prev, .active, .next').hide();
+        if ($(this).next().is(":hidden")) {
+          $('.card-carousel').stop(false, true).animate({left: '-=' + $slide});
+            $(this).removeClass('prev next');
+            $(this).siblings().removeClass('prev active next');
+            $(this).prev().addClass('prev');
+            $(this).next().addClass('next');
+            $(this).next().show();
+            $('.my-card').prevAll().not('.prev, .active, .next').hide();
         }
-      // if ($(this)[0].id === 'image0'){
-      //     let image_div = document.getElementById('image' + (images.length - 1))
-      //     $(image_div).removeAttr('style')
-      //     console.log(image_div, 'this is line 87');
-      //     $(this).before(image_div);
-      // }
-      // console.log('before: ', $(this)[0].id.slice(5, ), 'Next: ', $(this).next()[0].id.slice(5, ),'this is line 88');
-      // if ($(this)[0].id.slice(5, ) > $(this).next()[0].id.slice(5, )) {
-      //   // console.log($(this)[0].id.slice(5, ), 'this is this');
-      //   // console.log($(this)[0].id.slice(5, ), 'this is this');
-      //   let image_choice = $(this)[0].id.slice(5, )
-      //   let image_div = document.getElementById('image' + (image_choice - 1))
-      //   $(image_div).removeAttr('style')
-      //   // console.log(image_div, 'this is line 87');
-      //   $(this).before(image_div);
-      //   // $('.my-card:nth-child(' + 3 + ')').nextAll().hide();
-      //   $(this).next().hide()
-      // }
 
+        if ($(this).prev().is(":hidden")){
+          $('.card-carousel').stop(false, true).animate({left: '+=' + $slide});
+            $(this).removeClass('prev next');
+            $(this).siblings().removeClass('prev active next');
+            $(this).prev().addClass('prev');
+            $(this).next().addClass('next');
+            $(this).prev().show();
+            $('.my-card').nextAll().not('.prev, .active, .next').hide();
+        }
+      }
   })
 })
