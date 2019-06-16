@@ -28,33 +28,21 @@ let images = [
 
 $(document).ready(function(){
 
-  for(let image = 0; image < 3; image++){
+  for (var image in images) {
+    jQuery('<div/>', {
+     id:'image' + image,
+     class: 'my-card'
+    }).appendTo('.card-carousel');
 
-     jQuery('<div/>', {
-      id:'image' + image,
-      class: 'my-card'
-     }).appendTo('.card-carousel');
-
-     let image_source = images[image]
-     $('#image' + image).prepend($('<img>',{class: 'wedding_image', id: 'image' + image, src:image_source}))
+    let image_source = images[image]
+    $('#image' + image).prepend($('<img>',{class: 'wedding_image', id: 'image' + image, src:image_source}))
   }
-
-  // for (var image in images) {
-  //   jQuery('<div/>', {
-  //    id:'image' + image,
-  //    class: 'my-card'
-  //   }).appendTo('.card-carousel');
-  //
-  //   let image_source = images[image]
-  //   $('#image' + image).prepend($('<img>',{class: 'wedding_image', id: 'image' + image, src:image_source}))
-  // }
 
   $('.my-card:nth-child(' + 3 + ')').nextAll().hide();
   $('.my-card:nth-child(' + 2 + ')').addClass('active');
   $('.my-card').next().addClass('next');
 
-  
-  console.log($('.my-card:nth-child(' + 1+ ')')[0].id, 'this is line 44');
+
   $('.my-card').click(function() {
     console.log('this is click');
     $slide = 0
@@ -69,14 +57,21 @@ $(document).ready(function(){
       $(this).siblings().removeClass('prev active next');
       $(this).addClass('active');
       let first_image = $('.my-card:nth-child(' + 1+ ')')[0].id
+      let last_image = $('.my-card:last-child')[0].id
       //if the prev is image0
       if ($(this)[0].id === first_image){
-          let image_div = document.getElementById('image' + (images.length - 1))
-          $(image_div).removeAttr('style')
-          console.log(image_div, 'this is line 87');
+          let last_image_div = document.getElementById('image' + (images.length - 1))
+          $(image_div).show()
           $(this).before(image_div);
           $(this).nextAll().addClass('next');
-      }else {
+      }
+      else if ($(this)[0].id === last_image) {
+        let first_image_div = document.getElementById('image' + (1))
+        $(first_image_div).show()
+        $(this).after(first_image_div);
+        $(this).prevAll().addClass('prev');
+      }
+      else {
         $(this).prevAll().addClass('prev');
         $(this).nextAll().addClass('next');
       }
